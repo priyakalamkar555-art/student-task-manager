@@ -94,10 +94,27 @@ li {
   align-items: center;
 }
 
+li input[type="checkbox"] {
+  margin: 0px;
+  padding: 0px;
+  width: 1.25rem;
+}
+
+li span{
+  flex: 1;
+  margin-left: 0rem;
+  padding-left: 0.5rem;
+  width: 14.25rem;
+}
+
 .site-footer {
   border-top: 1px solid #ddd;
   background: #f9fafb;
   text-align: center;
+  position: fixed;
+  bottom: 0%;
+  height: 10%;
+  width: 100%;
 }
 
 .site-footer nav {
