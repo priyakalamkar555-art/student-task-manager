@@ -142,8 +142,9 @@ To maintain code quality and project consistency, please follow these rules:
 * 🔍 Check existing issues before creating new ones
 * 🤝 Be respectful and constructive in discussions
 
-
 ***🧭Discipline is the bridge between goals and accomplishment***
+
+---
 
 ## 💖 Show Your Support
 - ⭐ Give a star to the repository
@@ -153,6 +154,8 @@ To maintain code quality and project consistency, please follow these rules:
 - 🤝 Contribute with pull requests
 
 ***Let’s grow this project together and make it better with every update 🚀***
+
+---
 
 ## 📝 Final Note
 *This project grows stronger with every contribution. Let’s collaborate, learn, and build a meaningful open-source community together.*
