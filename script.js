@@ -80,3 +80,20 @@ window.onload = function () {
     document.getElementById("themeToggle").textContent = "☀️ Light Mode";
   }
 };
+function sortTasks(order) {
+  const taskList = document.getElementById("taskList");
+  const tasks = Array.from(taskList.getElementsByTagName("li"));
+
+  tasks.sort((a, b) => {
+    const textA = a.querySelector("span").textContent.toLowerCase();
+    const textB = b.querySelector("span").textContent.toLowerCase();
+
+    if (order === "asc") {
+      return textA.localeCompare(textB);
+    } else {
+      return textB.localeCompare(textA);
+    }
+  });
+
+  tasks.forEach(task => taskList.appendChild(task));
+}

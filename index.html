@@ -23,7 +23,10 @@
     </form>
 
     <p id="errorMsg" class="error" role="alert"></p>
-
+    <div style="margin-bottom: 10px;">
+  <button onclick="sortTasks('asc')">A to Z</button>
+  <button onclick="sortTasks('desc')">Z to A</button>
+</div>
     <ul id="taskList" aria-live="polite" aria-label="Task list"></ul>
   </main>
 
