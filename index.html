@@ -7,11 +7,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="site-header">
-        <h1>📚 Study Task Tracker</h1>
-        <button id="themeToggle" onclick="toggleTheme()">Dark Mode</button>
-    </header>
+    
 
+  <header class="site-header">
+    <h1>📚 Study Task Tracker</h1>
+    
+    //Added mutiple themes 
+  <select id="themeSwitcher" class="theme-dropdown">
+  <option value="light">🌞 Light</option>
+  <option value="dark">🌙 Dark</option>
+  <option value="blue">🩵 Blue</option>
+  <option value="pastel">🎀 Pastel</option>
+</select>
+    
+  </header>
     <main class="container">
         <div class="input-section">
             <input type="text" id="taskInput" placeholder="What are you studying?">
