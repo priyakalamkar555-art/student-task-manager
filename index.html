@@ -7,59 +7,48 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
 
-  <header class="site-header">
-    <h1>📚 Study Task Tracker</h1>
-    
-    //Added mutiple themes 
-  <select id="themeSwitcher" class="theme-dropdown">
-  <option value="light">🌞 Light</option>
-  <option value="dark">🌙 Dark</option>
-  <option value="blue">🩵 Blue</option>
-  <option value="pastel">🎀 Pastel</option>
-</select>
-    
-  </header>
-    <main class="container">
+    <header class="site-header">
+        <h1>📚 Study Task Tracker</h1>
+        <select id="themeSwitcher" class="theme-dropdown">
+            <option value="light">🌞 Light</option>
+            <option value="dark">🌙 Dark</option>
+            <option value="blue">🩵 Blue</option>
+            <option value="pastel">🎀 Pastel</option>
+        </select>
+    </header>
+
+    <main class="container" id="main-content">
         <div class="input-section">
-            <input type="text" id="taskInput" placeholder="What are you studying?">
+            <input type="text" id="taskInput" placeholder="What are you studying?" aria-label="Task input">
             <div class="controls">
-                <select id="categoryInput">
+                <select id="categoryInput" aria-label="Task category">
                     <option value="Theory">📘 Theory</option>
                     <option value="Practical">💻 Practical</option>
                     <option value="Revision">🔄 Revision</option>
                     <option value="Assignment">📝 Assignment</option>
                 </select>
-                <button id="addBtn" onclick="addTask()">Add Task</button>
+                <button id="addBtn">Add Task</button>
             </div>
         </div>
-        <ul id="taskList" aria-live="polite"></ul>
+
+        <div class="sort-controls">
+            <button onclick="sortTasks('asc')">A to Z</button>
+            <button onclick="sortTasks('desc')">Z to A</button>
+        </div>
+
+        <ul id="taskList" aria-live="polite" aria-label="Task list"></ul>
+
+        <p id="errorMsg" class="error" role="alert"></p>
     </main>
 
     <footer class="site-footer">
+        <nav aria-label="Footer navigation">
+            <a href="#main-content">Back to top</a>
+        </nav>
+        <p>Accessible study tracking with keyboard support and semantic structure.</p>
         <p>&copy; 2026 Study Task Tracker</p>
     </footer>
-
-    <p id="errorMsg" class="error" role="alert"></p>
-    <div style="margin-bottom: 10px;">
-  <button onclick="sortTasks('asc')">A to Z</button>
-  <button onclick="sortTasks('desc')">Z to A</button>
-</div>
-    <ul id="taskList" aria-live="polite" aria-label="Task list"></ul>
-  </main>
-
-  <footer class="site-footer">
-    <nav aria-label="Footer navigation">
-      <a href="#taskInput">Add task</a>
-      <a href="#taskList">View tasks</a>
-      <a href="#main-content">Back to top</a>
-    </nav>
-    <p>Accessible study tracking with keyboard support and semantic structure.</p>
-    <p>&copy; 2026 Study Task Tracker</p>
-  </footer>
-
-  <script src="script.js"></script>
 
     <script src="script.js"></script>
 
