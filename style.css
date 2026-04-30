@@ -696,13 +696,9 @@ body {
   --bg-color: #0f172a;
   --text-color: #e2e8f0;
   --card-bg: #1e293b;
-  --header-bg: linear-gradient(135deg, #1e293b, #0f172a);
+  --header-bg: #1e293b;
   --border-color: #334155;
   --button-bg: #6366f1;
-  --input-border: #334155;
-  --task-bg: #1e293b;
-  --task-border: #334155;
-  --footer-bg: #0f172a;
 }
 
 /* Blue Theme */
@@ -784,3 +780,78 @@ html[data-theme] .sort-controls button {
 [data-category="Practical"] { border-left: 4px solid #10b981; }
 [data-category="Revision"] { border-left: 4px solid #f59e0b; }
 [data-category="Assignment"] { border-left: 4px solid #8b5cf6; }
+html[data-theme] button {
+  background: var(--button-bg) !important;
+}
+.theme-dropdown {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 14px;
+}
+body {
+  transition: all 0.3s ease;
+}
+
+.celebration {
+  text-align: center;
+  margin-top: 20px;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.5s ease;
+}
+
+.celebration img {
+  width: 200px;
+  max-width: 100%;
+}
+
+/* When visible */
+.celebration.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 🎉 Image animation */
+.celebration.show img {
+  animation: bounceIn 0.6s ease, float 2s ease-in-out infinite;
+}
+
+/* Bounce entry */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3) rotate(-10deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) rotate(5deg);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(0.95) rotate(-3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* Floating effect */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* ✨ Optional glow effect */
+.celebration.show img {
+  filter: drop-shadow(0 0 10px gold);
+}
