@@ -25,11 +25,21 @@ body {
   z-index: 1000;
 }
 
-.site-header,
-.site-footer {
+.site-header{
   padding: 1rem;
   background: #fff;
   border-bottom: 1px solid #ddd;
+  
+}
+.site-footer {
+  padding: 10px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  position: static;
+  bottom: 0%;
+  width: 100%;
+  height: 40px; /* set a fixed height */
+  
 }
 
 .site-header {
@@ -109,11 +119,11 @@ a:hover {
 
 /* ===== Footer ===== */
 .site-footer {
-  margin: 30px;
+  margin: 20px;
   border-top: 1px solid #334155;
   color: rgb(0, 0, 0);
   padding-top: 10px;
-  padding-bottom: 100px;
+  padding-bottom: 0%;
 }
 
 /* ===== Navigation Links ===== */
@@ -209,7 +219,7 @@ li span{
   border-top: 1px solid #ddd;
   background: #f9fafb;
   text-align: center;
-  position: fixed;
+  position: static;
   bottom: 0%;
   height: 10%;
   width: 100%;
@@ -226,7 +236,7 @@ li span{
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.25rem;
 }
 
 .site-footer a {
