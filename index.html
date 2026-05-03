@@ -1,56 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Task Tracker</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Task Tracker</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <header class="site-header">
-        <h1>📚 Study Task Tracker</h1>
-        <select id="themeSwitcher" class="theme-dropdown">
-            <option value="light">🌞 Light</option>
-            <option value="dark">🌙 Dark</option>
-            <option value="blue">🩵 Blue</option>
-            <option value="pastel">🎀 Pastel</option>
-        </select>
-    </header>
+  <header class="site-header">
+    <h1>📚 Study Task Tracker</h1>
+    
+    //Added mutiple themes 
+  <select id="themeSwitcher" class="theme-dropdown">
+  <option value="light">🌞 Light</option>
+  <option value="dark">🌙 Dark</option>
+  <option value="blue">🩵 Blue</option>
+  <option value="pastel">🎀 Pastel</option>
+</select>
+    
+  </header>
 
-    <main class="container" id="main-content">
-        <div class="input-section">
-            <input type="text" id="taskInput" placeholder="What are you studying?" aria-label="Task input">
-            <div class="controls">
-                <select id="categoryInput" aria-label="Task category">
-                    <option value="Theory">📘 Theory</option>
-                    <option value="Practical">💻 Practical</option>
-                    <option value="Revision">🔄 Revision</option>
-                    <option value="Assignment">📝 Assignment</option>
-                </select>
-                <button id="addBtn">Add Task</button>
-            </div>
-        </div>
+  <main id="main-content" class="container">
+    <form id="taskForm" onsubmit="event.preventDefault(); addTask();">
+      <label for="taskInput">Task description</label>
+      <input type="text" id="taskInput" placeholder="Enter task" aria-describedby="taskHelp">
+      <button type="submit">Add</button>
+      <p id="taskHelp" class="sr-only">Enter a task and press Add to track your study items.</p>
+    </form>
 
-        <div class="sort-controls">
-            <button onclick="sortTasks('asc')">A to Z</button>
-            <button onclick="sortTasks('desc')">Z to A</button>
-        </div>
+    <p id="errorMsg" class="error" role="alert"></p>
 
-        <ul id="taskList" aria-live="polite" aria-label="Task list"></ul>
+    <ul id="taskList" aria-live="polite" aria-label="Task list"></ul>
+    <p id="taskStats"></p>
 
-        <p id="errorMsg" class="error" role="alert"></p>
-    </main>
+    <div id="celebration" class="celebration hidden">
+    <img src="task completed image.jpg" alt="Celebration" />
+    <p>All tasks completed! 🎉</p>
+  </div>
 
-    <footer class="site-footer">
-        <nav aria-label="Footer navigation">
-            <a href="#main-content">Back to top</a>
-        </nav>
-        <p>Accessible study tracking with keyboard support and semantic structure.</p>
-        <p>&copy; 2026 Study Task Tracker</p>
-    </footer>
+  </main>
 
-    <script src="script.js"></script>
+  <footer class="site-footer">
+    <nav aria-label="Footer navigation">
+  <a href="#taskInput">Add task</a>
+  <a href="#taskList">View tasks</a>
+  <a href="#main-content">Back to top</a>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="terms.html">Terms of Service</a>
+      <a href="#main-content">Back to top</a>
+    </nav>
+    <p>Accessible study tracking with keyboard support and semantic structure.</p>
+    <p>&copy; 2026 Study Task Tracker</p>
+  </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
