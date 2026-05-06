@@ -3,58 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Study Task Tracker</title>
+  <title>Nexus Task Master | Advanced Student Task Manager</title>
+  <meta name="description" content="Nexus Task Master - A premium, accessible, and feature-rich task manager for students. Organize your studies with categories, priorities, and persistent storage.">
+  <meta name="keywords" content="task manager, study tracker, student tools, productivity, glassmorphism, localstorage">
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body data-theme="dark">
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <header class="site-header">
-    <h1>📚 Study Task Tracker</h1>
-    
-    //Added mutiple themes 
-  <select id="themeSwitcher" class="theme-dropdown">
-  <option value="light">🌞 Light</option>
-  <option value="dark">🌙 Dark</option>
-  <option value="blue">🩵 Blue</option>
-  <option value="pastel">🎀 Pastel</option>
-</select>
-    
+    <div class="header-content">
+      <h1><span class="emoji">📚</span> Nexus Task Master</h1>
+      <div class="header-actions">
+        <select id="themeSwitcher" class="theme-dropdown" aria-label="Switch Theme">
+          <option value="light">🌞 Light</option>
+          <option value="dark" selected>🌙 Dark</option>
+          <option value="blue">🩵 Blue</option>
+          <option value="pastel">🎀 Pastel</option>
+        </select>
+      </div>
+    </div>
   </header>
 
   <main id="main-content" class="container">
-    <form id="taskForm" onsubmit="event.preventDefault(); addTask();">
-      <label for="taskInput">Task description</label>
-      <input type="text" id="taskInput" placeholder="Enter task" aria-describedby="taskHelp">
-      <button type="submit">Add</button>
-      <p id="taskHelp" class="sr-only">Enter a task and press Add to track your study items.</p>
-    </form>
+    <section class="task-input-section">
+      <form id="taskForm" class="glass-card">
+        <div class="input-group">
+          <input type="text" id="taskInput" placeholder="What needs to be done?" aria-label="Task description" required>
+          <button type="submit" id="addBtn">Add Task</button>
+        </div>
+        <div class="form-options">
+          <select id="taskCategory" aria-label="Select Category">
+            <option value="Study">📚 Study</option>
+            <option value="Personal">👤 Personal</option>
+            <option value="Work">💼 Work</option>
+            <option value="Health">🧘 Health</option>
+          </select>
+          <select id="taskPriority" aria-label="Select Priority">
+            <option value="Low">🟢 Low</option>
+            <option value="Medium" selected>🟡 Medium</option>
+            <option value="High">🔴 High</option>
+          </select>
+        </div>
+      </form>
+      <p id="errorMsg" class="error" role="alert"></p>
+    </section>
 
-    <p id="errorMsg" class="error" role="alert"></p>
+    <section class="stats-section glass-card">
+      <div class="stats-header">
+        <span id="taskStatsText">✅ 0 / 0 completed</span>
+        <button id="clearAllBtn" class="btn-danger">Clear All</button>
+      </div>
+      <div class="progress-container">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+    </section>
 
-    <ul id="taskList" aria-live="polite" aria-label="Task list"></ul>
-    <p id="taskStats"></p>
+    <section class="task-list-section">
+      <div class="search-box glass-card">
+        <input type="text" id="searchInput" placeholder="Search tasks..." aria-label="Search tasks">
+      </div>
+      <ul id="taskList" aria-live="polite" aria-label="Task list"></ul>
+      <div id="emptyState" class="empty-state">
+        <p>No tasks found. Start by adding one above! 🚀</p>
+      </div>
+    </section>
 
     <div id="celebration" class="celebration hidden">
-    <img src="task completed image.jpg" alt="Celebration" />
-    <p>All tasks completed! 🎉</p>
-  </div>
-
+      <img src="task completed image.jpg" alt="All tasks completed" />
+      <p>All tasks completed! You're on fire! 🎉</p>
+    </div>
   </main>
 
   <footer class="site-footer">
     <nav aria-label="Footer navigation">
-  <a href="#taskInput">Add task</a>
-  <a href="#taskList">View tasks</a>
-  <a href="#main-content">Back to top</a>
-  <a href="privacy.html">Privacy Policy</a>
-  <a href="terms.html">Terms of Service</a>
-      <a href="#main-content">Back to top</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="https://github.com/Sejal10406/student-task-manager" target="_blank">Original Repository</a>
     </nav>
-    <p>Accessible study tracking with keyboard support and semantic structure.</p>
-    <p>&copy; 2026 Study Task Tracker</p>
+    <p>Enhanced with an Accessible & Premium UI</p>
+    <p>&copy; 2026 Nexus Task Master</p>
   </footer>
 
   <script src="script.js"></script>
 </body>
-</html>
+</html>

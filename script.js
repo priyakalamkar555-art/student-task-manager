@@ -1,129 +1,199 @@
-function addTask() {
-  const input = document.getElementById("taskInput");
-  const task = input.value.trim();
-  const errorMsg = document.getElementById("errorMsg");
+// Nexus Task Master - Core Logic
+// Enhanced Version
 
-  if (task.trim()=== "") {
-    errorMsg.textContent = " Please enter a task.";
-    return;
-  };
-  errorMsg.textContent = "";
-  const li = document.createElement("li");
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM Elements
+    const taskForm = document.getElementById('taskForm');
+    const taskInput = document.getElementById('taskInput');
+    const taskCategory = document.getElementById('taskCategory');
+    const taskPriority = document.getElementById('taskPriority');
+    const taskList = document.getElementById('taskList');
+    const taskStatsText = document.getElementById('taskStatsText');
+    const progressBar = document.getElementById('progressBar');
+    const searchInput = document.getElementById('searchInput');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const themeSwitcher = document.getElementById('themeSwitcher');
+    const emptyState = document.getElementById('emptyState');
+    const celebration = document.getElementById('celebration');
 
+    // State
+    let tasks = JSON.parse(localStorage.getItem('nexus_tasks')) || [];
 
-  const checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  checkbox.addEventListener("change", function () {
-    toggleTask(checkbox);
-  });
+    // Initialize
+    init();
 
-  const span = document.createElement("span");
-  span.textContent = task;
+    function init() {
+        renderTasks();
+        setupTheme();
+        attachEventListeners();
+    }
 
-  const now = new Date();
-  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const day = dayNames[now.getDay()];
-  const date =`${now.getDate()} ${now.toLocaleString("default", { month: "long" })} ${now.getFullYear()}`;
-  const time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  const timeElement = document.createElement("small");
-  timeElement.textContent = ` (${day}, ${date} at ${time})`;
-  timeElement.style.marginLeft = "10px";
-  timeElement.style.color = "#888";
+    function setupTheme() {
+        const savedTheme = localStorage.getItem('nexus_theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (themeSwitcher) themeSwitcher.value = savedTheme;
+    }
 
+    function attachEventListeners() {
+        // Add Task
+        taskForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            addTask();
+        });
 
-  const editButton = document.createElement("button");
-    editButton.textContent = "Edit";
-    editButton.addEventListener("click", function () {
-      const newTask = prompt("Edit task:", span.textContent);
-      if (newTask !== null) {
-        span.textContent = newTask;
-      }
-    });
-    li.appendChild(span);
-    li.appendChild(timeElement);
-    li.appendChild(editButton);
-  const removeButton = document.createElement("button");
-  removeButton.textContent = "Remove";
-  removeButton.addEventListener("click", function () {
-    li.remove();
+        // Theme Switcher
+        themeSwitcher.addEventListener('change', (e) => {
+            const theme = e.target.value;
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('nexus_theme', theme);
+        });
 
-    taskTracker();
-    
-  });
+        // Search
+        searchInput.addEventListener('input', (e) => {
+            renderTasks(e.target.value);
+        });
 
+        // Clear All
+        clearAllBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear all tasks?')) {
+                tasks = [];
+                saveAndRender();
+            }
+        });
+    }
 
+    function addTask() {
+        const text = taskInput.value.trim();
+        const category = taskCategory.value;
+        const priority = taskPriority.value;
 
-  li.appendChild(checkbox);
-  li.appendChild(span);
+        if (text === '') {
+            showError('Please enter a task description.');
+            return;
+        }
 
+        const newTask = {
+            id: Date.now(),
+            text,
+            category,
+            priority,
+            completed: false,
+            createdAt: new Date().toISOString()
+        };
 
-  li.appendChild(removeButton);
+        tasks.unshift(newTask);
+        taskInput.value = '';
+        errorMsg.textContent = '';
+        saveAndRender();
+    }
 
-  document.getElementById("taskList").appendChild(li);
-  
-  input.value = "";
+    function toggleTask(id) {
+        tasks = tasks.map(task => 
+            task.id === id ? { ...task, completed: !task.completed } : task
+        );
+        saveAndRender();
+    }
 
-  taskTracker();
+    function deleteTask(id) {
+        tasks = tasks.filter(task => task.id !== id);
+        saveAndRender();
+    }
 
-}
-/* =========================
-   MULTI-THEME SWITCHER
-========================= */
+    function editTask(id) {
+        const task = tasks.find(t => t.id === id);
+        const newText = prompt('Edit your task:', task.text);
+        if (newText !== null && newText.trim() !== '') {
+            tasks = tasks.map(t => 
+                t.id === id ? { ...t, text: newText.trim() } : t
+            );
+            saveAndRender();
+        }
+    }
 
-const themeSwitcher = document.getElementById("themeSwitcher");
+    function saveAndRender() {
+        localStorage.setItem('nexus_tasks', JSON.stringify(tasks));
+        renderTasks(searchInput.value);
+    }
 
-// Load saved theme
-const savedTheme = localStorage.getItem("theme") || "light";
-document.documentElement.setAttribute("data-theme", savedTheme);
+    function renderTasks(filter = '') {
+        const filteredTasks = tasks.filter(task => 
+            task.text.toLowerCase().includes(filter.toLowerCase())
+        );
 
-if (themeSwitcher) {
-  themeSwitcher.value = savedTheme;
+        taskList.innerHTML = '';
 
-  themeSwitcher.addEventListener("change", function (e) {
-    const selectedTheme = e.target.value;
+        if (filteredTasks.length === 0) {
+            emptyState.style.display = 'block';
+            emptyState.querySelector('p').textContent = filter ? 'No matching tasks found.' : 'No tasks yet. Add one to get started!';
+        } else {
+            emptyState.style.display = 'none';
+        }
 
-    document.documentElement.setAttribute("data-theme", selectedTheme);
-    localStorage.setItem("theme", selectedTheme);
-  });
-}
+        filteredTasks.forEach(task => {
+            const li = document.createElement('li');
+            li.className = `task-item ${task.completed ? 'completed' : ''} priority-${task.priority.toLowerCase()}`;
+            
+            const date = new Date(task.createdAt);
+            const timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const dateStr = date.toLocaleDateString();
 
+            li.innerHTML = `
+                <div class="task-main">
+                    <input type="checkbox" ${task.completed ? 'checked' : ''} aria-label="Toggle task">
+                    <div class="task-content">
+                        <span class="task-text">${escapeHtml(task.text)}</span>
+                        <div class="task-meta">
+                            <span class="tag category-tag">${task.category}</span>
+                            <span class="tag priority-tag">${task.priority}</span>
+                            <span class="timestamp">${dateStr} at ${timeStr}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="task-actions">
+                    <button class="btn-icon edit-btn" title="Edit Task">✏️</button>
+                    <button class="btn-icon delete-btn" title="Delete Task">🗑️</button>
+                </div>
+            `;
 
+            // Event Listeners for dynamic elements
+            li.querySelector('input').addEventListener('change', () => toggleTask(task.id));
+            li.querySelector('.delete-btn').addEventListener('click', () => deleteTask(task.id));
+            li.querySelector('.edit-btn').addEventListener('click', () => editTask(task.id));
 
+            taskList.appendChild(li);
+        });
 
-function toggleTask(checkbox) {
-  const span = checkbox.nextElementSibling;
-  span.classList.toggle("completed");
+        updateStats();
+    }
 
-  taskTracker();
-}
+    function updateStats() {
+        const total = tasks.length;
+        const completedCount = tasks.filter(t => t.completed).length;
+        const percent = total === 0 ? 0 : Math.round((completedCount / total) * 100);
 
+        taskStatsText.textContent = `✅ ${completedCount} / ${total} completed (${percent}%)`;
+        progressBar.style.width = `${percent}%`;
 
-function taskTracker() {
-  const tasks = document.querySelectorAll("#taskList li");
-  const completed = document.querySelectorAll("#taskList input:checked");
+        // Celebration logic
+        if (total > 0 && total === completedCount) {
+            celebration.classList.remove('hidden');
+            celebration.classList.add('show');
+        } else {
+            celebration.classList.remove('show');
+            celebration.classList.add('hidden');
+        }
+    }
 
-  const empty = document.getElementById("emptyState");
-  if (empty) {
-    empty.style.display = tasks.length === 0 ? "block" : "none";
-  }
+    function showError(msg) {
+        errorMsg.textContent = msg;
+        setTimeout(() => { errorMsg.textContent = ''; }, 3000);
+    }
 
-  const stats = document.getElementById("taskStats");
-  if (stats) {
-    stats.innerText = `✅ ${completed.length} / ${tasks.length} completed`;
-  }
-
-  const celebration = document.getElementById("celebration");
-
-  if (tasks.length > 0 && tasks.length === completed.length) {
-    celebration.classList.remove("hidden");
-
-    setTimeout(() => {
-      celebration.classList.add("show");
-    }, 100);
-  } else {
-    celebration.classList.remove("show");
-    celebration.classList.add("hidden");
-  }
-}
-
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+});
 
