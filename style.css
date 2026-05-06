@@ -25,11 +25,21 @@ body {
   z-index: 1000;
 }
 
-.site-header,
-.site-footer {
+.site-header{
   padding: 1rem;
   background: #fff;
   border-bottom: 1px solid #ddd;
+  
+}
+.site-footer {
+  padding: 10px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  position: static;
+  bottom: 0%;
+  width: 100%;
+  height: 40px; /* set a fixed height */
+  
 }
 
 .site-header {
@@ -109,11 +119,12 @@ a:hover {
 
 /* ===== Footer ===== */
 .site-footer {
-  margin: 30px;
+  margin: 20px;
   border-top: 1px solid #334155;
   color: rgb(0, 0, 0);
   padding-top: 10px;
-  padding-bottom: 100px;
+  padding-bottom: 0%;
+  color: var(--text-color);
 }
 
 /* ===== Navigation Links ===== */
@@ -282,6 +293,7 @@ li:hover {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-bottom: 0.25rem;
 }
 
 .filter-btn {
@@ -689,6 +701,7 @@ body {
   --task-bg: #f8fafc;
   --task-border: #e2e8f0;
   --footer-bg: #f8fafc;
+  --completed-color: black;
 }
 
 /* Dark Theme */
@@ -699,6 +712,7 @@ body {
   --header-bg: #1e293b;
   --border-color: #334155;
   --button-bg: #6366f1;
+   --completed-color: #e2e8f0;
 }
 
 /* Blue Theme */
@@ -713,6 +727,7 @@ body {
   --task-bg: #f0f9ff;
   --task-border: #bae6fd;
   --footer-bg: #e0f2fe;
+  --completed-color: black;
 }
 
 /* Pastel Theme */
@@ -727,6 +742,13 @@ body {
   --task-bg: #fdf2f8;
   --task-border: #fce7f3;
   --footer-bg: #fdf2f8;
+  --bg-color: #fdf2f8;        /* soft pink */
+  --text-color: #4b5563;      /* soft gray text */
+  --card-bg: #fce7f3;         /* pastel pink cards */
+  --header-bg: #e9d5ff;       /* lavender header */
+  --border-color: #c4b5fd;
+  --button-bg: #a5b4fc;
+  --completed-color: black;
 }
 
 /* Apply theme variables */
